@@ -657,8 +657,8 @@ MonoBehaviour:
   energyText: {fileID: 994217147}
   playText: {fileID: 329147443}
   playButton: {fileID: 1791769881}
-  androidNotificationHandler: {fileID: 0}
-  iosNotificationHandler: {fileID: 0}
+  androidNotificationHandler: {fileID: 1221552740}
+  iosNotificationHandler: {fileID: 1221552741}
   maxEnergy: 5
   energyRechargeDurationInMinutes: 1
   energyCost: 1
