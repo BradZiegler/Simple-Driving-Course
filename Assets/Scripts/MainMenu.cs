@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private TMP_Text playText;
     [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
+    [SerializeField] private IOSNotificationHandler iosNotificationHandler;
     [SerializeField] private int maxEnergy;
     [SerializeField] private int energyRechargeDurationInMinutes;
     [SerializeField] private int energyCost;
@@ -93,6 +94,9 @@ public class MainMenu : MonoBehaviour {
 
 #if UNITY_ANDROID
         androidNotificationHandler.ScheduleNotification(notificationTime);
+#elif UNITY_IOS
+        int timeInMinutesUntilEnergyFull = (int)(notificationTime - DateTime.Now).TotalMinutes;
+        iosNotificationHandler.ScheduleNotification(timeInMinutesUntilEnergyFull);
 #endif
     }
 }
