@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class MainMenu : MonoBehaviour {
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private TMP_Text playText;
+    [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
     [SerializeField] private int maxEnergy;
     [SerializeField] private int energyRechargeDurationInMinutes;
     [SerializeField] private int energyCost;
@@ -40,7 +39,7 @@ public class MainMenu : MonoBehaviour {
         if (energy < maxEnergy) {
             string nextEnergyReadyString = PlayerPrefs.GetString(NextEnergyReadyKey, string.Empty);
 
-            if (nextEnergyReadyString == string.Empty) { return; }
+            if (string.IsNullOrEmpty(nextEnergyReadyString)) { return; }
 
             nextEnergyReady = DateTime.Parse(nextEnergyReadyString);
 
@@ -77,6 +76,23 @@ public class MainMenu : MonoBehaviour {
             PlayerPrefs.SetString(NextEnergyReadyKey, nextEnergyReady.ToString());
         }
 
+        SetNotification();
+
         SceneManager.LoadScene(1);
+    }
+
+    private void SetNotification() {
+        string nextEnergyReadyString = PlayerPrefs.GetString(NextEnergyReadyKey, string.Empty);
+        if (string.IsNullOrEmpty(nextEnergyReadyString)) { return; }
+        
+        DateTime notificationTime = DateTime.Parse(nextEnergyReadyString);
+
+        for(int i = energy + 1; i < maxEnergy; i++) {
+            notificationTime.AddMinutes(energyRechargeDurationInMinutes);
+        }
+
+#if UNITY_ANDROID
+        androidNotificationHandler.ScheduleNotification(notificationTime);
+#endif
     }
 }
