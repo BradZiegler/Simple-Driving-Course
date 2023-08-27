@@ -656,6 +656,7 @@ MonoBehaviour:
   highScoreText: {fileID: 1020736906}
   energyText: {fileID: 994217147}
   playText: {fileID: 329147443}
+  playButton: {fileID: 1791769881}
   androidNotificationHandler: {fileID: 0}
   iosNotificationHandler: {fileID: 0}
   maxEnergy: 5

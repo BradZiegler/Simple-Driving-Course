@@ -5,11 +5,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private TMP_Text playText;
+    [SerializeField] private Button playButton;
     [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
     [SerializeField] private IOSNotificationHandler iosNotificationHandler;
     [SerializeField] private int maxEnergy;
@@ -31,6 +33,8 @@ public class MainMenu : MonoBehaviour {
 
     private void Update() {
         ProcessEnergy();
+
+        playButton.enabled = energy >= energyCost;
     }
 
     private void ProcessEnergy() {
