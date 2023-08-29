@@ -32,5 +32,9 @@ public class AndroidNotificationHandler : MonoBehaviour {
 
         AndroidNotificationCenter.SendNotification(notification, ChannelId);
     }
+
+    public void CancelAllNotifications() {
+        AndroidNotificationCenter.CancelAllNotifications();
+    }
 #endif
 }

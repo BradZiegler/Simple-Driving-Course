@@ -97,6 +97,7 @@ public class MainMenu : MonoBehaviour {
         }
 
 #if UNITY_ANDROID
+        androidNotificationHandler.CancelAllNotifications();
         androidNotificationHandler.ScheduleNotification(notificationTime);
 #elif UNITY_IOS
         int timeInMinutesUntilEnergyFull = (int)(notificationTime - DateTime.Now).TotalMinutes;
